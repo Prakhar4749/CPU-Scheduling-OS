@@ -1,4 +1,4 @@
-// Input: Array of processes with arrival time, burst time, and priority in JSON format
+
 const processes = [
     { id: "P1", arrival: 0, burst: 4, priority: 3 },
     { id: "P2", arrival: 1, burst: 6, priority: 1 },
