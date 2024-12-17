@@ -15,8 +15,7 @@ function scheduling(processes) {
     let remaining = [...processes];
     remaining.forEach((p) => {
         p.remaining_burst = p.burst
-        p.turn_around = 0;
-        p.waiting = 0;
+       
     });
     let results = [];
 
@@ -79,5 +78,5 @@ function display(processes) {
 }
 
 display(results);
-console.log("gaint chart ->" + gaint_chart);
+console.log("gaint chart -> [" + gaint_chart + "]");
 

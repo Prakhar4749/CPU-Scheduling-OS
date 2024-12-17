@@ -6,22 +6,20 @@ const processes = [
     { id: "P5", arrival: 3, burst: 5 },
     { id: "P6", arrival: 4, burst: 6 },
   ];
-  let gaint_chart = []
+  let gaint_chart = [];
   
   
-  function scheduling(processes) {
+  function scheduling(p) {
     
     processes.sort((a, b) =>  a.arrival - b.arrival);
   
-    let current = 0; 
-    processes.forEach((process) => {
+    let current_time = 0; 
+    processes.forEach((p) => {
      
-      current = Math.max(current, process.arrival) + process.burst;
-  
-      
-      process.turn_around = current - process.arrival;
-      process.waitingTime = process.turn_around - process.burst;
-      gaint_chart.push(process.id)
+      current_time = Math.max(current_time, p.arrival) + p.burst;
+      p.turn_around = current_time - p.arrival;
+      p.waiting = p.turn_around - p.burst;
+      gaint_chart.push(p.id)
     });
     
   
@@ -36,19 +34,18 @@ const processes = [
     console.log(
       "|---------|--------------|------------|-----------------|--------------|"
     );
-    processes.forEach((process) => {
+    processes.forEach((p) => {
       console.log(
-        `| ${process.id}      | ${process.arrival.toString().padStart(
+        `| ${p.id}      | ${p.arrival.toString().padStart(
           12
-        )} | ${process.burst.toString().padStart(10)} | ${process.turn_around
-          .toString()
-          .padStart(15)} | ${process.waitingTime.toString().padStart(12)} |`
+        )} | ${p.burst.toString().padStart(10)} | ${p.turn_around.toString()
+          .padStart(15)} | ${p.waiting.toString().padStart(12)} |`
       );
     });
   }
 
   display(processes);
-  console.log("gaint chart ->" + gaint_chart);
+  console.log("gaint chart -> [" + gaint_chart + "]");
 
   
   

@@ -12,15 +12,14 @@ let gaint_chart = []
 const time_limit = 3;
 
 
-function roundRobin(processes, time_limit) {
+function round_robin(processes, time_limit) {
   let remaining = [...processes]
 
-  
+
   let current_time = 0;
   remaining.forEach((p) => {
     p.remaining_burst = p.burst
-    p.turn_around = 0;
-    p.waiting = 0;
+    
   });
   let queue = [];
   let results = [];
@@ -31,29 +30,29 @@ function roundRobin(processes, time_limit) {
         queue.push(remaining[i].id);
       }
     }
-    
+
 
 
     if (queue.length > 0) {
-      const i = remaining.findIndex((p)=> p.id === queue[0]);
+      const i = remaining.findIndex((p) => p.id === queue[0]);
       const process = remaining[i];
-     
-    
 
-      
-      const executionTime = Math.min(time_limit,  remaining[i].remaining_burst);
-      current_time += executionTime;
-      remaining[i].remaining_burst -= executionTime;
 
-     
+
+
+      const execution_time = Math.min(time_limit, remaining[i].remaining_burst);
+      current_time += execution_time;
+      remaining[i].remaining_burst -= execution_time;
+
+
       if (remaining[i].remaining_burst === 0) {
         remaining[i].turn_around = current_time - process.arrival;
-        remaining[i].waiting = remaining[i].turn_around  - process.burst;
+        remaining[i].waiting = remaining[i].turn_around - process.burst;
         results.push(remaining[i]);
         gaint_chart.push(process.id)
-        remaining.splice(i,1);
-      } 
-      else{
+        remaining.splice(i, 1);
+      }
+      else {
         for (let i = 0; i < remaining.length; i++) {
           if (remaining[i].arrival <= current_time && queue.indexOf(remaining[i].id) == -1) {
             queue.push(remaining[i].id);
@@ -62,13 +61,13 @@ function roundRobin(processes, time_limit) {
       }
       queue.shift();
     } else {
-      
+
       current_time++;
     }
   }
   return results;
 }
-console.log(JSON.stringify( roundRobin(processes, time_limit)));
+console.log(JSON.stringify(round_robin(processes, time_limit)));
 
 
 function display(results) {
@@ -82,8 +81,8 @@ function display(results) {
 }
 
 
-const result = roundRobin(processes, time_limit);
+const result = round_robin(processes, time_limit);
 
 
 display(result);
-console.log("gaint chart ->" + gaint_chart);
+console.log("gaint chart -> [" + gaint_chart + "]");

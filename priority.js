@@ -11,15 +11,14 @@ let gaint_chart = []
 
 
 
-function priorityScheduling(processes) {
+function priority(processes) {
     let remaining = [...processes]
 
-    const n = remaining.length;
+
     let current_time = 0;
     remaining.forEach((p) => {
         p.remaining_burst = p.burst
-        p.turn_around = 0;
-        p.waiting = 0;
+       
     });
     let results = [];
     remaining.sort((a, b) => a.priority - b.priority);
@@ -31,9 +30,6 @@ function priorityScheduling(processes) {
                 queue.push(remaining[i].id);
             }
         }
-
-
-
 
         if (queue.length > 0) {
             const i = remaining.findIndex((p) => p.id === queue[0]);
@@ -64,7 +60,7 @@ function priorityScheduling(processes) {
 }
 
 
-function displaye(result) {
+function display(result) {
     console.log("Process | Arrival Time | Burst Time | Priority | Turnaround Time | Waiting Time");
     console.log("---------------------------------------------------------------------------------------");
     result.forEach(r => {
@@ -75,9 +71,10 @@ function displaye(result) {
 }
 
 
-const results = priorityScheduling(processes);
-displaye(results);
-console.log("gaint chart ->" + gaint_chart);
+const results = priority(processes);
+console.log(JSON.stringify(results));
+display(results);
+console.log("gaint chart -> [" + gaint_chart + "]");
 
 
 
